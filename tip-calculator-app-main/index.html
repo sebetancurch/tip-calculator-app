@@ -107,17 +107,21 @@
       color: hsl(183, 100%, 15%);
     }
     .input {
-      color: hsl(183, 100%, 15%); 
-      background-color: inherit;
+      color: hsl(183, 100%, 15%);
       border: 0px;
-      font-family: 'Space Mono';
-      font-size: medium;
-      font-weight: 700;
       text-align: right;
       cursor: pointer;
+      display: flex; 
+      justify-content: space-between; 
+      border-radius: 5px; 
+      font-size: 24px; 
+      background-color: hsl(189, 41%, 97%); 
+      font-family: 'Space Mono';
+      font-weight: 700;
+      width: 90%;
     }
     .input:focus{
-      outline: none;
+      outline: hsl(183, 100%, 15%);
     }
 
     @media only screen and (max-width: 375px) {
@@ -178,9 +182,9 @@
           <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
             Bill
           </div>
-          <div style="display: flex; justify-content: space-between; border-radius: 5px; font-size: 24px; background-color: hsl(189, 41%, 97%); font-family: 'Space Mono';">
-            <div style="padding: 0px 10px; color: grey;"> $ </div>
-            <input id="bill" class="input" type="number"/>
+          <div style="display: flex; align-items: center;">
+            <div style="padding: 0px 10px; color: grey; font-family: 'Space Mono'; font-weight: 700;"> $ </div>
+            <input id="bill" class="input" type="number" pattern="[0-9]+" value="0"/>
           </div>
         </div>
 
@@ -202,8 +206,8 @@
         <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
           Number of People
         </div>
-        <div style="display: flex; justify-content: space-between; border-radius: 5px; font-size: 24px; background-color: hsl(189, 41%, 97%); font-family: 'Space Mono';">
-          <div style="padding: 0px 10px; color: grey;"> $ </div>
+        <div style="display: flex; align-items: center;">
+          <div style="padding: 0px 10px; color: grey; font-family: 'Space Mono'; font-weight: 700;"> $ </div>
           <input id="people" class="input" type="number"/>
         </div>
       </form>
