@@ -17,13 +17,21 @@
       background-color: hsl(185, 41%, 84%);
       height: 100dvh;
     }
+    #principal{
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;
+      align-items: center;
+      height: 100dvh;
+      width: 100dvw;
+    }
     #mainCard {
       padding: 20px;
       border-radius: 25px;
       background-color: white;
       display: flex;
       justify-content: space-evenly;
-      width: 1000px;
+      width: 50%;
     }
     #calculationResult {
       display: flex;
@@ -32,7 +40,7 @@
       border-radius: 25px;
       margin-left: 20px;
       background-color: hsl(183, 100%, 15%);
-      width: 800px;
+      width: 60%;
     }
     #inputCard {
       display: flex;
@@ -47,7 +55,7 @@
       font-weight: 700;
       margin: 10px 10px;
       cursor: pointer;
-      width: 400px;
+      width: 80%;
     }
     #customButton {
       border-radius: 10px;
@@ -58,7 +66,7 @@
       font-weight: 700;
       margin: 10px 0px;
       cursor: pointer;
-      width: 120px;
+      width: 25%;
     }
     #customInput {
       border-radius: 10px;
@@ -68,7 +76,7 @@
       font-family: 'Space Mono';
       font-weight: 700;
       margin: 10px 0px;
-      width: 85px;
+      width: 20%;
     }
     .percentageButtton {
       border-radius: 10px;
@@ -79,7 +87,7 @@
       font-weight: 700;
       margin: 10px 0px;
       cursor: pointer;
-      width: 120px;
+      width: 25%;
     }
     .percentageButtton:focus {
       border-radius: 10px;
@@ -90,7 +98,7 @@
       font-weight: 700;
       margin: 10px 0px;
       cursor: pointer;
-      width: 120px;
+      width: 25%;
     }
     .percentageButtton > div {
       color: white;
@@ -99,13 +107,45 @@
       color: hsl(183, 100%, 15%);
     }
     .input {
-      padding: 0px 10px; 
       color: hsl(183, 100%, 15%); 
       background-color: inherit;
       border: 0px;
+      font-family: 'Space Mono';
+      font-size: medium;
+      font-weight: 700;
+      text-align: right;
+      cursor: pointer;
     }
     .input:focus{
       outline: none;
+    }
+
+    @media only screen and (max-width: 375px) {
+
+      #mainCard {
+        padding: 20px;
+        border-radius: 25px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+      }
+      #calculationResult {
+        display: flex;
+        flex-direction: column;
+        border-radius: 25px;
+        background-color: hsl(183, 100%, 15%);
+        width: 80%;
+        margin-left: 0px;
+      }
+      #inputCard {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
     }
   </style>
   <script>
@@ -128,75 +168,80 @@
 </head>
 <body>
 
-  <div id="mainCard">
-    <form id="inputCard">
-      <div style="margin-bottom: 10px;">
+  <div id="principal">
+    <span style="font-family: 'Space Mono'; color: hsl(183, 100%, 15%); font-size: x-large; font-weight: 700; letter-spacing: 0.4em;">SPLI</span>
+    <span style="font-family: 'Space Mono'; color: hsl(183, 100%, 15%); font-size: x-large; font-weight: 700; letter-spacing: 0.4em; margin-bottom: 50px;">TTER</span>
+
+    <div id="mainCard">
+      <form id="inputCard" name="form">
+        <div style="margin-bottom: 10px;">
+          <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
+            Bill
+          </div>
+          <div style="display: flex; justify-content: space-between; border-radius: 5px; font-size: 24px; background-color: hsl(189, 41%, 97%); font-family: 'Space Mono';">
+            <div style="padding: 0px 10px; color: grey;"> $ </div>
+            <input id="bill" class="input" type="number"/>
+          </div>
+        </div>
+
         <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
-          Bill
+          Select Tip %
+        </div>
+        <div style="flex-wrap: wrap;">
+          <button class="percentageButtton"> <div> 5% </div> </button>
+          <button class="percentageButtton"> <div> 10% </div> </button>
+          <button class="percentageButtton"> <div> 15% </div> </button>
+          <button class="percentageButtton"> <div> 25% </div> </button>
+          <button class="percentageButtton"> <div> 50% </div> </button>
+          <button id="customButton" onclick="writeCustomPercentage()"> 
+            <div style="color: hsl(183, 100%, 15%);"> Custom </div>
+          </button>
+          <input type="number" id="customInput" style="display: none;"> 
+        </div>
+
+        <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
+          Number of People
         </div>
         <div style="display: flex; justify-content: space-between; border-radius: 5px; font-size: 24px; background-color: hsl(189, 41%, 97%); font-family: 'Space Mono';">
           <div style="padding: 0px 10px; color: grey;"> $ </div>
-          <input id="bill" class="input" type="number"/>
+          <input id="people" class="input" type="number"/>
         </div>
-      </div>
+      </form>
 
-      <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
-        Select Tip %
-      </div>
-      <div style="flex-wrap: wrap;">
-        <button class="percentageButtton"> <div> 5% </div> </button>
-        <button class="percentageButtton"> <div> 10% </div> </button>
-        <button class="percentageButtton"> <div> 15% </div> </button>
-        <button class="percentageButtton"> <div> 25% </div> </button>
-        <button class="percentageButtton"> <div> 50% </div> </button>
-        <button id="customButton" onclick="writeCustomPercentage()"> 
-          <div style="color: hsl(183, 100%, 15%);"> Custom </div>
-        </button>
-        <input type="number" id="customInput" style="display: none;"> 
-      </div>
-
-      <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
-        Number of People
-      </div>
-      <div style="display: flex; justify-content: space-between; border-radius: 5px; font-size: 24px; background-color: hsl(189, 41%, 97%); font-family: 'Space Mono';">
-        <div style="padding: 0px 10px; color: grey;"> $ </div>
-        <input id="people" class="input" type="number"/>
-      </div>
-    </form>
-
-    <div id="calculationResult">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-        <div style="display: flex; flex-direction: column;">
-          <div style="font-family: 'Space Mono'; color: white;">
-            Tip Amount
+      <div id="calculationResult">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+          <div style="display: flex; flex-direction: column;">
+            <div style="font-family: 'Space Mono'; color: white;">
+              Tip Amount
+            </div>
+            <div style="font-family: 'Space Mono'; color: grey; font-size: small;">
+              / person
+            </div>
           </div>
-          <div style="font-family: 'Space Mono'; color: grey; font-size: small;">
-            / person
+          <div style="font-family: 'Space Mono'; color: white; font-size: xx-large;">
+            $0.00
           </div>
         </div>
-        <div style="font-family: 'Space Mono'; color: white; font-size: xx-large;">
-          $0.00
-        </div>
-      </div>
 
-      <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-        <div style="display: flex; flex-direction: column;">
-          <div style="font-family: 'Space Mono'; color: white;">
-            Total
+        <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+          <div style="display: flex; flex-direction: column;">
+            <div style="font-family: 'Space Mono'; color: hsl(185, 41%, 84%);">
+              Total
+            </div>
+            <div style="font-family: 'Space Mono'; color: grey; font-size: small;">
+              / person
+            </div>
           </div>
-          <div style="font-family: 'Space Mono'; color: grey; font-size: small;">
-            / person
+          <div style="font-family: 'Space Mono'; color: hsl(185, 41%, 84%); font-size: xx-large;">
+            $0.00
           </div>
         </div>
-        <div style="font-family: 'Space Mono'; color: white; font-size: xx-large;">
-          $0.00
-        </div>
-      </div>
 
-      <div style="display: flex; justify-content: center; margin-top: auto;">
-        <button id="resetButton">
-          Reset
-        </button>
+        <div style="display: flex; justify-content: center; margin-top: auto;">
+          <button id="resetButton">
+            Reset
+          </button>
+        </div>
       </div>
     </div>
   </div>
