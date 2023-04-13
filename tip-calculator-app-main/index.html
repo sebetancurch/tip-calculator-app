@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Space+Mono">
+  
+  <title>Frontend Mentor | Tip calculator app</title>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: hsl(185, 41%, 84%);
+      height: 100dvh;
+    }
+    #mainCard {
+      padding: 20px;
+      border-radius: 25px;
+      background-color: white;
+      display: flex;
+      justify-content: space-evenly;
+      width: 1000px;
+    }
+    #calculationResult {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-radius: 25px;
+      margin-left: 20px;
+      background-color: hsl(183, 100%, 15%);
+      width: 800px;
+    }
+    #inputCard {
+      display: flex;
+      flex-direction: column;
+    }
+    #resetButton{
+      border-radius: 5px;
+      background-color: hsl(185, 41%, 84%);
+      padding: 12px 0px;
+      font-size: 16px;
+      font-family: 'Space Mono';
+      font-weight: 700;
+      margin: 10px 10px;
+      cursor: pointer;
+      width: 400px;
+    }
+    #customButton {
+      border-radius: 10px;
+      background-color: hsl(185, 41%, 84%);
+      padding: 12px 0px;
+      font-size: 16px;
+      font-family: 'Space Mono';
+      font-weight: 700;
+      margin: 10px 0px;
+      cursor: pointer;
+      width: 120px;
+    }
+    #customInput {
+      border-radius: 10px;
+      background-color: hsl(185, 41%, 84%);
+      padding: 12px 15px;
+      font-size: 16px;
+      font-family: 'Space Mono';
+      font-weight: 700;
+      margin: 10px 0px;
+      width: 85px;
+    }
+    .percentageButtton {
+      border-radius: 10px;
+      background-color: hsl(183, 100%, 15%);
+      padding: 12px 45px;
+      font-size: 16px;
+      font-family: 'Space Mono';
+      font-weight: 700;
+      margin: 10px 0px;
+      cursor: pointer;
+      width: 120px;
+    }
+    .percentageButtton:focus {
+      border-radius: 10px;
+      background-color: hsl(185, 41%, 84%);
+      padding: 12px 45px;
+      font-size: 16px;
+      font-family: 'Space Mono';
+      font-weight: 700;
+      margin: 10px 0px;
+      cursor: pointer;
+      width: 120px;
+    }
+    .percentageButtton > div {
+      color: white;
+    }
+    .percentageButtton:focus > div {
+      color: hsl(183, 100%, 15%);
+    }
+    .input {
+      padding: 0px 10px; 
+      color: hsl(183, 100%, 15%); 
+      background-color: inherit;
+      border: 0px;
+    }
+    .input:focus{
+      outline: none;
+    }
+  </style>
+  <script>
+
+    var isCustomSet = false;
+
+    function writeCustomPercentage() {
+      if (isCustomSet) {
+        document.getElementById('customButton').style.display = 'inline-block';
+        document.getElementById('customInput').style.display = 'none';
+        isCustomSet = true;
+      } else {
+        document.getElementById('customButton').style.display = 'none';
+        document.getElementById('customInput').style.display = 'inline-block';
+        isCustomSet = false;
+      }
+    }
+
+  </script>
+</head>
+<body>
+
+  <div id="mainCard">
+    <form id="inputCard">
+      <div style="margin-bottom: 10px;">
+        <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
+          Bill
+        </div>
+        <div style="display: flex; justify-content: space-between; border-radius: 5px; font-size: 24px; background-color: hsl(189, 41%, 97%); font-family: 'Space Mono';">
+          <div style="padding: 0px 10px; color: grey;"> $ </div>
+          <input id="bill" class="input" type="number"/>
+        </div>
+      </div>
+
+      <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
+        Select Tip %
+      </div>
+      <div style="flex-wrap: wrap;">
+        <button class="percentageButtton"> <div> 5% </div> </button>
+        <button class="percentageButtton"> <div> 10% </div> </button>
+        <button class="percentageButtton"> <div> 15% </div> </button>
+        <button class="percentageButtton"> <div> 25% </div> </button>
+        <button class="percentageButtton"> <div> 50% </div> </button>
+        <button id="customButton" onclick="writeCustomPercentage()"> 
+          <div style="color: hsl(183, 100%, 15%);"> Custom </div>
+        </button>
+        <input type="number" id="customInput" style="display: none;"> 
+      </div>
+
+      <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
+        Number of People
+      </div>
+      <div style="display: flex; justify-content: space-between; border-radius: 5px; font-size: 24px; background-color: hsl(189, 41%, 97%); font-family: 'Space Mono';">
+        <div style="padding: 0px 10px; color: grey;"> $ </div>
+        <input id="people" class="input" type="number"/>
+      </div>
+    </form>
+
+    <div id="calculationResult">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+        <div style="display: flex; flex-direction: column;">
+          <div style="font-family: 'Space Mono'; color: white;">
+            Tip Amount
+          </div>
+          <div style="font-family: 'Space Mono'; color: grey; font-size: small;">
+            / person
+          </div>
+        </div>
+        <div style="font-family: 'Space Mono'; color: white; font-size: xx-large;">
+          $0.00
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+        <div style="display: flex; flex-direction: column;">
+          <div style="font-family: 'Space Mono'; color: white;">
+            Total
+          </div>
+          <div style="font-family: 'Space Mono'; color: grey; font-size: small;">
+            / person
+          </div>
+        </div>
+        <div style="font-family: 'Space Mono'; color: white; font-size: xx-large;">
+          $0.00
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: center; margin-top: auto;">
+        <button id="resetButton">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
