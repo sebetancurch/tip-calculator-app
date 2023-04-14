@@ -6,6 +6,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Space+Mono">
+  <script src="https://kit.fontawesome.com/314d295428.js" crossorigin="anonymous"></script>
   
   <title>Frontend Mentor | Tip calculator app</title>
 
@@ -89,22 +90,8 @@
       cursor: pointer;
       width: 25%;
     }
-    .percentageButtton:focus {
-      border-radius: 10px;
-      background-color: hsl(185, 41%, 84%);
-      padding: 12px 45px;
-      font-size: 16px;
-      font-family: 'Space Mono';
-      font-weight: 700;
-      margin: 10px 0px;
-      cursor: pointer;
-      width: 25%;
-    }
     .percentageButtton > div {
       color: white;
-    }
-    .percentageButtton:focus > div {
-      color: hsl(183, 100%, 15%);
     }
     .input {
       color: hsl(183, 100%, 15%);
@@ -154,18 +141,89 @@
   </style>
   <script>
 
-    var isCustomSet = false;
+    let isCustomSet = false;
+    let percentageValue = 0;
+    let avaliablePercentages = [5,10,15,25,50];
 
     function writeCustomPercentage() {
       if (isCustomSet) {
         document.getElementById('customButton').style.display = 'inline-block';
         document.getElementById('customInput').style.display = 'none';
-        isCustomSet = true;
+        document.getElementById('customInput').value = 0;
+        isCustomSet = false;
       } else {
         document.getElementById('customButton').style.display = 'none';
         document.getElementById('customInput').style.display = 'inline-block';
-        isCustomSet = false;
+        isCustomSet = true;
       }
+    }
+
+    function selectPercentage(percentage) {
+
+      let previousPercentage = avaliablePercentages.includes(percentageValue) ? document.getElementById(percentageValue.toString()) : null;
+      let percentageSelected = document.getElementById(percentage.toString());
+
+      if (previousPercentage !== null) {
+        previousPercentage.style.backgroundColor = 'hsl(183, 100%, 15%)';
+        previousPercentage.firstElementChild.style.color = 'white';
+      };
+
+      percentageSelected.style.backgroundColor = 'hsl(185, 41%, 84%)';
+      percentageSelected.firstElementChild.style.color = 'hsl(183, 100%, 15%)';
+
+      percentageValue = percentage;
+
+      calculateResults();
+
+      writeCustomPercentage();
+    }
+
+    function calculateResults() {
+      let bill = document.getElementById('bill').value;
+      let people = document.getElementById('people').value;
+      let totalTip = document.getElementById('totalTip');
+      let total = document.getElementById('total');
+
+      totalTip.innerHTML = '$' + (bill*people*percentageValue*0.01).toString() + '.00';
+      total.innerHTML = '$' + (bill*people).toString() + '.00';
+    }
+
+    function calculateFromCustom() {
+      let customInput = document.getElementById('customInput').value;
+      let previousPercentage = avaliablePercentages.includes(percentageValue) ? document.getElementById(percentageValue.toString()) : null;
+
+      if (previousPercentage !== null) {
+        previousPercentage.style.backgroundColor = 'hsl(183, 100%, 15%)';
+        previousPercentage.firstElementChild.style.color = 'white';
+      };
+
+      percentageValue = customInput;
+
+      calculateResults();
+    }
+
+    function reset() {
+      let totalTip = document.getElementById('totalTip');
+      let total = document.getElementById('total');
+      let previousPercentage = avaliablePercentages.includes(percentageValue) ? document.getElementById(percentageValue.toString()) : null;
+
+      if (previousPercentage !== null) {
+        previousPercentage.style.backgroundColor = 'hsl(183, 100%, 15%)';
+        previousPercentage.firstElementChild.style.color = 'white';
+      };
+
+      document.getElementById('bill').value = 0;
+      document.getElementById('people').value = 0;
+
+      totalTip.innerHTML = '$0.00';
+      total.innerHTML = '$0.00';
+
+      percentageValue = 0;
+
+      document.getElementById('customButton').style.display = 'inline-block';
+      document.getElementById('customInput').style.display = 'none';
+      document.getElementById('customInput').value = 0;
+      isCustomSet = false;
     }
 
   </script>
@@ -177,14 +235,14 @@
     <span style="font-family: 'Space Mono'; color: hsl(183, 100%, 15%); font-size: x-large; font-weight: 700; letter-spacing: 0.4em; margin-bottom: 50px;">TTER</span>
 
     <div id="mainCard">
-      <form id="inputCard" name="form">
+      <div id="inputCard">
         <div style="margin-bottom: 10px;">
           <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
             Bill
           </div>
           <div style="display: flex; align-items: center;">
             <div style="padding: 0px 10px; color: grey; font-family: 'Space Mono'; font-weight: 700;"> $ </div>
-            <input id="bill" class="input" type="number" pattern="[0-9]+" value="0"/>
+            <input id="bill" class="input" type="number" onchange="calculateResults()" value="0"/>
           </div>
         </div>
 
@@ -192,25 +250,25 @@
           Select Tip %
         </div>
         <div style="flex-wrap: wrap;">
-          <button class="percentageButtton"> <div> 5% </div> </button>
-          <button class="percentageButtton"> <div> 10% </div> </button>
-          <button class="percentageButtton"> <div> 15% </div> </button>
-          <button class="percentageButtton"> <div> 25% </div> </button>
-          <button class="percentageButtton"> <div> 50% </div> </button>
+          <button id="5" class="percentageButtton" onclick="selectPercentage(5)"> <div> 5% </div> </button>
+          <button id="10" class="percentageButtton" onclick="selectPercentage(10)"> <div> 10% </div> </button>
+          <button id="15" class="percentageButtton" onclick="selectPercentage(15)"> <div> 15% </div> </button>
+          <button id="25" class="percentageButtton" onclick="selectPercentage(25)"> <div> 25% </div> </button>
+          <button id="50" class="percentageButtton" onclick="selectPercentage(50)"> <div> 50% </div> </button>
           <button id="customButton" onclick="writeCustomPercentage()"> 
             <div style="color: hsl(183, 100%, 15%);"> Custom </div>
           </button>
-          <input type="number" id="customInput" style="display: none;"> 
+          <input type="number" id="customInput" value="0" style="display: none; font-family: 'Space Mono'; font-weight: 700; color: hsl(183, 100%, 15%); width: 18%;" onchange="calculateFromCustom()"> 
         </div>
 
         <div style="font-family: 'Space Mono'; font-weight: 700; color: grey;">
           Number of People
         </div>
         <div style="display: flex; align-items: center;">
-          <div style="padding: 0px 10px; color: grey; font-family: 'Space Mono'; font-weight: 700;"> $ </div>
-          <input id="people" class="input" type="number"/>
+          <i class="fa-solid fa-user fa-sm" style="padding: 0px 10px; color: grey;"></i>
+          <input id="people" class="input" type="number" onchange="calculateResults()" value="0"/>
         </div>
-      </form>
+      </div>
 
       <div id="calculationResult">
         <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
@@ -222,27 +280,27 @@
               / person
             </div>
           </div>
-          <div style="font-family: 'Space Mono'; color: white; font-size: xx-large;">
+          <div id="totalTip" style="font-family: 'Space Mono'; color: hsl(185, 41%, 84%); font-size: xx-large;">
             $0.00
           </div>
         </div>
 
         <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
           <div style="display: flex; flex-direction: column;">
-            <div style="font-family: 'Space Mono'; color: hsl(185, 41%, 84%);">
+            <div style="font-family: 'Space Mono'; color: white;">
               Total
             </div>
             <div style="font-family: 'Space Mono'; color: grey; font-size: small;">
               / person
             </div>
           </div>
-          <div style="font-family: 'Space Mono'; color: hsl(185, 41%, 84%); font-size: xx-large;">
+          <div id="total" style="font-family: 'Space Mono'; color: hsl(185, 41%, 84%); font-size: xx-large;">
             $0.00
           </div>
         </div>
 
         <div style="display: flex; justify-content: center; margin-top: auto;">
-          <button id="resetButton">
+          <button id="resetButton" onclick="reset()">
             Reset
           </button>
         </div>
